@@ -3,7 +3,9 @@
 #include <iostream>
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(640, 320), "SFML works!", sf::Style::None);
+	sf::ContextSettings settings;
+	settings.antialiasingLevel = 8;
+	sf::RenderWindow window(sf::VideoMode(640, 320), "SFML works!", sf::Style::None, settings);
 	window.setPosition(
 		sf::Vector2i(sf::VideoMode::getDesktopMode().width / 2 - window.getSize().x / 2,
 		sf::VideoMode::getDesktopMode().height / 2 - window.getSize().y / 2));
@@ -18,11 +20,16 @@ int main()
 	while (window.isOpen())
 	{
 		sf::Event event;
-		while (window.pollEvent(event))
+		while(window.pollEvent(event))
 		{
-			if (event.type == sf::Event::Closed) window.close();
+			// if(event.type == sf::Event::Resized) window.setView(
+			// 	sf::View(
+			// 		sf::Vector2f((float)event.size.width / 2.0, (float)event.size.height / 2.0),
+			// 		sf::Vector2f((float)event.size.width, (float)event.size.height)
+			// 	)
+			// );
+			if(event.type == sf::Event::Closed) window.close();
 		}
-
 		window.clear(sf::Color(255, 255, 255));
 		window.draw(shape);
 		window.display();
